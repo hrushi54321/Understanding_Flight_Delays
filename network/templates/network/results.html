@@ -1,0 +1,65 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+	<br />
+	<h2 style="text-align:center"> Results </h2>
+	<br />
+	{% if user.is_authenticated %}
+	
+		<div class="alert alert-primary" role="alert" style="text-align:center">
+			Origin Airport: {{ originairport }}
+			<br />
+			Destination Airport: {{ destinationairport }}
+			<br />
+			Airline: {{ airline }}
+			<br />
+			Date: {{ date }}
+		</div>
+		
+		{% if myflag == 0 %}
+			<h2> Your flight will be right on time! </h2>
+		{% elif myflag == -1 %}
+			<h2> Your {{ airline }} flight from {{ originairport }} to {{ destinationairport }} on {{ date }} will be early by {{ prediction }} minutes! </h2>
+		{% else %}
+			<h2> Your {{ airline }} flight from {{ originairport }} to {{ destinationairport }} on {{ date }} will be delayed by {{ prediction }} minutes! </h2>
+		{% endif %}
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Evaluation Metric</th>
+					<th scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Variance Score</td>
+					<td>{{ variancescore }}</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>R2 Score</td>
+					<td>{{ r2_score }}</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Mean Absolute Error</td>
+					<td>{{ mean_absolute_error }}</td>
+				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>Mean Squared Error</td>
+					<td>{{ mean_squared_error }}</td>
+				</tr>
+				<tr>
+					<th scope="row">5</th>
+					<td>Root Mean Squared Error</td>
+					<td>{{ root_mean_squared_error }}</td>
+				</tr>
+			</tbody>
+		</table>
+	{% endif %}
+	
+{% endblock %}
